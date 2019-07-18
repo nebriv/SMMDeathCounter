@@ -57,6 +57,7 @@ if from_stream:
         exit()
 
     if "best" in streams:
+        print("Playing 'Best' Stream")
         stream = streams["best"]
     else:
         for each in streams.keys():
@@ -238,57 +239,62 @@ thread.start()
 counter = 0
 restart = 3000
 
+if from_stream:
+    # Read Stream
+    while True:
+        succ, frame = cap.read()
+        if succ:
+            counter += 1
+            if counter < 60:
+                #im_show(frame, "Test", 1)
+                # Detect deaths
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                death = detect_death(frame)
 
-# Read Stream
-while True:
-    succ, frame = cap.read()
-    if succ:
-        counter += 1
-        if counter < 60:
-            #im_show(frame, "Test", 1)
-            # Detect deaths
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            death = detect_death(frame)
+                if death:
+                    start = time.time()
+                    rips += 1
+                    print("RIPs: %s" % rips)
+                    black = False
+                    print("waiting for black screen")
+                    max = 1200
+                    counter2 = 0
+                    while not black:
+                        counter2 += 1
+                        if counter2 > max:
+                            break
+                        success, frame = cap.read()
+                        if success:
+                            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                            if np.any(frame[100, 100] == 0) and np.any(frame[50, 50] == 0) and np.any(frame[50, 150] == 0):
+                                black = True
+                        else:
+                            break
 
-            if death:
-                start = time.time()
-                rips += 1
-                print("RIPs: %s" % rips)
-                black = False
-                print("waiting for black screen")
-                while not black:
-                    success, frame = cap.read()
-                    if success:
-                        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        # if color == 0:
+                        #     black = True
 
-                        if np.any(frame[100, 100] == 0) and np.any(frame[50, 50] == 0) and np.any(frame[50, 150] == 0):
-                            black = True
-                    else:
-                        break
+                    print("Waiting for game screen")
+                    counter2 = 0
+                    while black:
+                        counter2 += 1
+                        if counter2 > max:
+                            break
+                        success, frame = cap.read()
+                        if success:
+                            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
+                            if np.any(frame[100, 100] != 0) and np.any(frame[50, 50] != 0) and np.any(frame[50, 150] != 0):
+                                black = False
+                        else:
+                            break
+                    print("Continuing")
+            else:
+                print("Catching up")
+                counter = 0
+                cap.read()
 
-                    # if color == 0:
-                    #     black = True
-
-                print("Waiting for game screen")
-                while black:
-                    success, frame = cap.read()
-                    if success:
-                        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-                        if np.any(frame[100, 100] != 0) and np.any(frame[50, 50] != 0) and np.any(frame[50, 150] != 0):
-                            black = False
-                    else:
-                        break
-                print("Continuing")
-        else:
-            print("Catching up")
-            counter = 0
-            cap.read()
-
-
-    break
-cap.release()
+    cap.release()
 
 
 # Read image from screen
