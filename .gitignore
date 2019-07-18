@@ -6,7 +6,6 @@ __pycache__/
 *$py.class
 
 readDeath.py
-directKeys.py
 
 # C extensions
 *.so

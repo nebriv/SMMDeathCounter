@@ -79,13 +79,11 @@ elif game_coords:
 #     if mouse_pos.x < 1920:
 #        break
 
-
 def im_show(img, name, time, x=2000, y=100):
     cv2.namedWindow(name)
     cv2.moveWindow(name, x, y)
     cv2.imshow(name, img)
     cv2.waitKey(time)
-
 
 def create_death_counter_image():
     global rips, start
