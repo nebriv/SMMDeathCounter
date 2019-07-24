@@ -14,8 +14,8 @@ from livestreamer import Livestreamer
 from queue import Queue
 
 from_stream = True
-client_id = "ewvlchtxgqq88ru9gmfp1gmyt6h2b93"
-stream_url = "https://www.twitch.tv/mitchflowerpower"
+client_id = ""
+stream_url = ""
 # Doesn't need to be set unless you want to read from local screen
 game_coords = [283,235,1548,948]
 
