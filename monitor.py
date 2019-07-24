@@ -14,8 +14,8 @@ from livestreamer import Livestreamer
 from queue import Queue
 
 from_stream = True
-client_id = "***REMOVED***"
-stream_url = "***REMOVED***"
+client_id = ""
+stream_url = ""
 # Doesn't need to be set unless you want to read from local screen
 game_coords = [283,235,1548,948]
 
@@ -26,7 +26,7 @@ def authenticate_twitch_oauth():
     """Opens a web browser to allow the user to grant Livestreamer
        access to their Twitch account."""
 
-    client_id = "***REMOVED***"
+    client_id = "ewvlchtxgqq88ru9gmfp1gmyt6h2b93"
     redirect_uri = "http://livestreamer.tanuki.se/en/develop/twitch_oauth.html"
     url = ("https://api.twitch.tv/kraken/oauth2/authorize/"
            "?response_type=token&client_id={0}&redirect_uri="
