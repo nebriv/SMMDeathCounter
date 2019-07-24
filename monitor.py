@@ -14,12 +14,12 @@ from livestreamer import Livestreamer
 from queue import Queue
 
 from_stream = True
-client_id = ""
-stream_url = ""
+client_id = "ewvlchtxgqq88ru9gmfp1gmyt6h2b93"
+stream_url = "https://www.twitch.tv/mitchflowerpower"
 # Doesn't need to be set unless you want to read from local screen
 game_coords = [283,235,1548,948]
 
-background_color = ()
+background_color = (0,255,0)
 
 def authenticate_twitch_oauth():
     # From livestream code - didn't feel like import it.
@@ -95,7 +95,13 @@ def create_death_counter_image():
     while True:
 
         # Create a black image
-        img = np.zeros((55,350,3), np.uint8)
+        height = 55
+        width = 350
+
+        img = np.zeros((height,width,3), np.uint8)
+        img[:, 0:width] = background_color
+
+
 
         # Write some Text
         font                   = cv2.FONT_HERSHEY_SIMPLEX
