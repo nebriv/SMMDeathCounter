@@ -9,7 +9,7 @@ keyboard==0.13.3
 kiwisolver==1.1.0
 livestreamer==1.12.2
 matplotlib==3.0.3
-numpy==1.16.4
+numpy==1.22.0
 opencv-python==4.1.0.25
 Pillow==6.1.0
 pycryptodome==3.8.2
